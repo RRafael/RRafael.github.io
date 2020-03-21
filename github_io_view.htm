@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="<?php echo base_url('assets/js/css-loader/css-loader.css');?>">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css"
+	rel="stylesheet">
+
+<!-- JQuery -->
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" defer
+	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/js/mdb.min.js"></script>
+<script>
+
+function abreFechaSideNav(){
+	 document.getElementById("mySidenav").classList.toggle("comeBack");
+    document.querySelector("#mostra-overlay").classList.toggle("sidenav-overlay");
+}
+
+$(document).ready(function(){
+		$.ajax({
+        type: "GET", 
+        url: "https://bibleapi.co/api/books/gn",
+        timeout: 3000,
+        datatype: 'JSON',
+        contentType: "application/json; charset=utf-8",
+        cache: false,
+        beforeSend: function() {
+            //$("h2").html("Carregando..."); //Carregando
+            document.querySelector('crg-loader').className = 'loader';
+           //$("#loader").show();
+        },
+        success: function(retorno) {
+                // Interpretando retorno JSON...
+               // var clientes = retorno;
+    
+                // Listando cada cliente encontrado na lista...
+             //   $.each(clientes,function(i, cliente){
+            //        var item = "<li><h2>"+cliente.NOME+"</h2><p><b>Fone.:</b> "+cliente.TELEFONE+"</p><p><b>Email:</b> "+cliente.EMAIL+"</p></li>";
+            //        $("#listaClientes").append(item);
+             //   });
+                //Limpar Status de Carregando 
+            //    $("h2").html("Carregado"); 
+    
+                //alert(retorno);
+        },
+        complete: function () {
+        	 //$("h2").html("completo");
+        	 //$("#loader").hide();
+        	//alert('sucesso');
+        	document.getElementById('crg-loader').className = 'loader loader-default';
+      	},
+      	error: function() {
+            $("h2").html("O servidor não conseguiu processar o pedido");
+        } 
+    });    
+});
+</script>
+<style>
+.sidenav {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 100%;
+	width: 240px;
+	/* width: 0; original */
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #F9FAFC;
+	overflow-y: auto;
+	transition: 0.3s;
+	padding-top: 60px;
+	transform: translateX(-300px);
+	margin-bottom: 0;
+}
+
+.sidenav::-webkit-scrollbar {
+	width: 10px;
+	background: #e3e0d6;
+} /* configurando scroll */
+.sidenav::-webkit-scrollbar-track {
+	background: rgba(0, 0, 0, 0.1);
+}
+
+.sidenav::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: #8b8778;
+	height: 10%;
+}
+
+.sidenav::-moz-scrollbar {
+	width: 10px;
+	background: #e3e0d6;
+} /* configurando scroll */
+.sidenav::-moz-scrollbar-track {
+	background: rgba(0, 0, 0, 0.1);
+}
+
+.sidenav::-moz-scrollbar-thumb {
+	border-radius: 10px;
+	background: #8b8778;
+	height: 10%;
+}
+
+.sidenav-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 120vh;
+	background-color: rgba(0, 0, 0, .5);
+	z-index: 0;
+	transition: 0.3s;
+	will-change: opacity;
+}
+
+.comeBack {
+	transform: translateX(0);
+}
+
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 18px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+}
+
+/* @media screen and (max-height: 450px) {
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
+}
+@media screen and (max-width: 300px) {
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
+}*/
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+	<div id="mySidenav" class="sidenav">
+
+		<a href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a>
+		<a href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a>
+		<a href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a>
+		<a href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a><a
+			href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a> <a
+			href="#">Contact</a> <a href="#">About</a> <a href="#">Services</a> <a
+			href="#">Clients</a> <a href="#">Contact</a> <a href="#">UTIMO</a> <a
+			href="#"></a> <a href="#"></a>
+
+	</div>
+
+	<!-- Just an image -->
+	<nav class="navbar navbar-dark primary-color">
+		<a class="navbar-brand" href="javascript:void(0)"
+			onclick="abreFechaSideNav()"> <img
+			src="https://mdbootstrap.com/img/logo/mdb-transparent.png"
+			height="30" alt="mdb logo">
+		</a>
+	</nav>
+	<div class="loader"></div>
+
+	<h2>Animated Sidenav Example</h2>
+	<p>Click on the element below to open the side navigation menu.</p>
+	<span style="font-size: 30px; cursor: pointer"
+		onclick="abreFechaSideNav()">&#9776; open</span>
+	<h2>Animated Sidenav Example</h2>
+	<p>Click on the element below to open the side navigation menu.</p>
+	<h2>Animated Sidenav Example</h2>
+	<p>Click on the element below to open the side navigation menu.</p>
+	<h2>Animated Sidenav Example</h2>
+	<p>Click on the element below to open the side navigation menu.</p>
+	<h2>Animated Sidenav Example</h2>
+	<p>Click on the element below to open the side navigation menu.</p>
+	<h2>Animated Sidenav Example</h2>
+	<p>Click on the element below to open the side navigation menu.</p>
+	<h2>Animated Sidenav Example</h2>
+	<p>Click on the element below to open the side navigation menu.</p>
+	<h2>Animated Sidenav Example</h2>
+	<p>Click on the element below to open the side navigation menu.</p>
+
+	<div id="mostra-overlay" onclick="abreFechaSideNav()"></div>
+
+</body>
+</html>
